@@ -1,6 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 const url = import.meta.env.VITE_APP_API_URL;
+
 class ContactService {
     constructor() {
         this.baseUrl = `${url}/api/contacts`;

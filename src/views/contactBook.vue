@@ -8,8 +8,11 @@
                 Danh bạ
                 <i class="fas fa-address-book" />
             </h4>
-            <ContactList v-if="filteredContactsCount > 0" :contacts="filteredContacts"
-                v-model:activeIndex="activeIndex" />
+            <ContactList 
+                v-if="filteredContactsCount > 0" 
+                :contacts="filteredContacts"
+                v-model:activeIndex="activeIndex" 
+            />
             <p v-else>
                 Không có liên hệ nào.
             </p>
@@ -138,8 +141,9 @@ export default {
 <style scoped>
 .page {
     text-align: left;
-    max-width: 750px;
+    max-width: 800px;
 }
-</style> 
+
+</style>
 
 
