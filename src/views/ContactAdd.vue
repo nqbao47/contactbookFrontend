@@ -1,7 +1,10 @@
 <template>
     <div v-if="contact" class="page">
-        <h4 >Hiệu chỉnh Liên hệ</h4>
-        <ContactForm :contact="contact" @submit:contact="onUpdateContact" @delete:contact="onDeleteContact" />
+        <h4 v-if="addCont">Thêm Liên Hệ</h4>
+        <ContactForm 
+            :contact="contact" 
+            @submit:contact="onUpdateContact"     
+        />
         <p>{{ message }}</p>
     </div>
 </template>
@@ -13,7 +16,7 @@ export default {
         ContactForm,
     },
     props: {
-        contactId: { type: Number, required: true },
+        addCont: { type: Boolean, required: false },
     },
     data() {
         return {
@@ -24,8 +27,18 @@ export default {
     methods: {
         async getContact(id) {
             try {
+                if (id) {
                 this.contact = await contactService.get(id);
-            } catch (error) {
+            } else {
+                this.contact = {
+                    name: "",
+                    email: "",
+                    address: "",
+                    phone: "",
+                    favorite: false,
+          };
+        }
+      } catch (error) {
                 console.log(error);
                 // Redirect to NotFound page and keep URL intact
                 this.$router.push({
@@ -40,8 +53,8 @@ export default {
         },
         async onUpdateContact(contact) {
             try {
-                await contactService.update(contact.id, contact);
-                this.message = 'Liên hệ được cập nhật thành công.';
+                await contactService.create(contact);
+                this.message = "Thêm Liên hệ thành công";
             } catch (error) {
                 console.log(error);
             }
